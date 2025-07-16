@@ -33,6 +33,6 @@ jobs:
           chroma_auth_credentials: 'JlYpcJQhbtT1sEqcVCUoy9je09gGRAr1'
           chroma_ssl_enabled: 'false'
           
-          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           file_extensions: '.js,.ts,.jsx,.tsx,.html,.css,.md,.txt'
           exclude_patterns: 'node_modules/**,dist/**,.git/**'

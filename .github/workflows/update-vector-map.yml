@@ -18,9 +18,6 @@ jobs:
         with:
           fetch-depth: 0  # Повна історія для режиму diff
 
-      - name: Configure Git safe directory
-        run: git config --global --add safe.directory /github/workspace
-
       - name: Update Vector Code Map
         uses: forproxyband/vector-code-map@main
         env:

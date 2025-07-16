@@ -18,7 +18,16 @@ async function run() {
     
     // Підключаємося до векторної бази даних
     let dbAdapter;
-    
+
+    const { execSync } = require('child_process');
+    try {
+      execSync('git config --global --add safe.directory /github/workspace');
+      console.log('Added /github/workspace as safe directory');
+    } catch (error) {
+      console.error('Failed to configure safe directory:', error.message);
+    }
+
+
     if (dbType === 'chromadb') {
       const chromaHost = core.getInput('chroma_host', { required: true });
       const chromaPort = core.getInput('chroma_port') || '8000';

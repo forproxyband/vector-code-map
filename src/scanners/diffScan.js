@@ -18,6 +18,7 @@ async function scanDiff({
   const status = await git.status();
 
   console.log(`git status ${status.current}`)
+  console.log(`git files count ${status.files.length}`)
   console.log(`git created ${status.created.length}`)
   console.log(`git modified ${status.modified.length}`)
   console.log(`git renamed ${status.renamed.length}`)

@@ -1,0 +1,32 @@
+{
+  "name": "vector-code-map-action",
+  "version": "1.0.0",
+  "description": "GitHub Action to create vector embeddings from code repository",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "dotenv -e ./localRun.env node localRun.js"
+  },
+  "keywords": [
+    "github",
+    "action",
+    "vector",
+    "embeddings",
+    "openai",
+    "chromadb"
+  ],
+  "author": "Your Organization",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "@langchain/core": "^0.3.62",
+    "@langchain/textsplitters": "^0.1.0",
+    "chromadb": "^1.5.3",
+    "dotenv": "^16.0.3",
+    "dotenv-cli": "^8.0.0",
+    "glob": "^10.2.2",
+    "openai": "^5.9.0",
+    "simple-git": "^3.18.0"
+  }
+}

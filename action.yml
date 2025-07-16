@@ -1,0 +1,70 @@
+name: 'Vector Code Map Generator'
+description: 'Creates vector embeddings from code repository for AI applications'
+author: 'Your Organization'
+
+inputs:
+  mode:
+    description: 'Scanning mode: full (entire repository) or diff (only changed files)'
+    required: true
+    default: 'full'
+  
+  db_type:
+    description: 'Vector database type'
+    required: true
+    default: 'chromadb'
+  
+  chroma_host:
+    description: 'ChromaDB host address'
+    required: true
+  
+  chroma_port:
+    description: 'ChromaDB port'
+    required: true
+    default: '8000'
+  
+  chroma_collection:
+    description: 'ChromaDB collection name'
+    required: true
+  
+  # Параметри авторизації для ChromaDB
+  chroma_auth_enabled:
+    description: 'Enable authentication for ChromaDB'
+    required: false
+    default: 'false'
+  
+  chroma_auth_type:
+    description: 'Authentication type for ChromaDB (basic, token, etc.)'
+    required: false
+    default: 'basic'
+  
+  chroma_auth_credentials:
+    description: 'Authentication credentials for ChromaDB (username:password for basic auth, or token)'
+    required: false
+  
+  chroma_ssl_enabled:
+    description: 'Enable SSL/TLS for ChromaDB connection'
+    required: false
+    default: 'false'
+  
+  openai_api_key:
+    description: 'OpenAI API key for embedding generation'
+    required: true
+  
+  openai_model:
+    description: 'OpenAI embedding model to use'
+    required: false
+    default: 'text-embedding-3-small'
+  
+  file_extensions:
+    description: 'Comma-separated list of file extensions to include'
+    required: false
+    default: '.js,.ts,.jsx,.tsx,.html,.css,.md,.txt'
+  
+  exclude_patterns:
+    description: 'Patterns to exclude (glob format)'
+    required: false
+    default: 'node_modules/**,dist/**,.git/**'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

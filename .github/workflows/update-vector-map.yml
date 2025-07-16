@@ -23,7 +23,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          mode: 'diff'
+          mode: 'full'
           db_type: 'chromadb'
           chroma_host: '181.41.213.86'
           chroma_port: '1811'

@@ -17,9 +17,10 @@ async function scanDiff({
   // Отримуємо змінені файли з останнього коміту
   const status = await git.status();
 
-  console.log(`status ${status.current}`)
-  console.log(`status ${status.modified.length}`)
-  console.log(`status ${await git.firstCommit()}`)
+  console.log(`git status ${status.current}`)
+  console.log(`git created ${status.created.length}`)
+  console.log(`git modified ${status.modified.length}`)
+  console.log(`git renamed ${status.renamed.length}`)
 
   // Збираємо файли, які були змінені
   const changedFiles = [

@@ -12,6 +12,10 @@ async function scanDiff({
 }) {
   console.log('Running diff scan for changed files');
 
+  const commitSha = process.env.GITHUB_SHA;
+
+  console.log(`commitSha ${commitSha}`);
+
   const git = simpleGit(repoPath);
   
   // Отримуємо змінені файли з останнього коміту

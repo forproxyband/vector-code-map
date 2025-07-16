@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0  # Повна історія для режиму diff
       
       - name: Update Vector Code Map
-        uses: your-org/vector-code-map@v1
+        uses: forproxyband/update-vector-map@main
         with:
           mode: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode || 'diff' }}
           db_type: 'chromadb'

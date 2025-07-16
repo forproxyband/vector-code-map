@@ -17,7 +17,25 @@ async function scanDiff({
   console.log(`commitSha ${commitSha}`);
 
   const git = simpleGit(repoPath);
-  
+
+  const diffSummary = await git.diffSummary([`${commitSha}^..${commitSha}`]);
+
+  const changedFiles1 = diffSummary.files
+      .map(file => file.file)
+      .filter(file => fileExtensions.some(ext => file.endsWith(ext)))
+      .filter(file => !excludePatterns.some(pattern => {
+        const regexPattern = pattern
+            .replace(/\*\*/g, '.*')
+            .replace(/\*/g, '[^/]*')
+            .replace(/\?/g, '[^/]');
+
+        return new RegExp(`^${regexPattern}$`).test(file);
+      }))
+      .map(file => path.resolve(repoPath, file));
+
+  console.log(`Found ${changedFiles1.length} changed files in commit ${commitSha}`);
+
+
   // Отримуємо змінені файли з останнього коміту
   const status = await git.status();
 

@@ -11,12 +11,16 @@ async function scanDiff({
   openaiModel
 }) {
   console.log('Running diff scan for changed files');
-  
+
   const git = simpleGit(repoPath);
   
   // Отримуємо змінені файли з останнього коміту
   const status = await git.status();
-  
+
+  console.log(`status ${status.current}`)
+  console.log(`status ${status.modified.length}`)
+  console.log(`status ${await git.firstCommit()}`)
+
   // Збираємо файли, які були змінені
   const changedFiles = [
     ...status.modified,

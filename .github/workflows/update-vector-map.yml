@@ -23,12 +23,11 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
-          mode: 'full'
-          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          mode: 'diff'
           db_type: 'chromadb'
           chroma_host: '181.41.213.86'
           chroma_port: '1811'
-          chroma_collection: 'update-vector-map'
+          chroma_collection: 'openai-update-vector-map'
           
           # Налаштування авторизації
           chroma_auth_enabled: 'true'

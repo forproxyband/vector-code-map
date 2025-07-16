@@ -20,7 +20,7 @@ async function scanDiff({
 
   const diffSummary = await git.diffSummary([`${commitSha}^..${commitSha}`]);
 
-  const changedFiles1 = diffSummary.files
+  const changedFiles = diffSummary.files
       .map(file => file.file)
       .filter(file => fileExtensions.some(ext => file.endsWith(ext)))
       .filter(file => !excludePatterns.some(pattern => {
@@ -33,35 +33,35 @@ async function scanDiff({
       }))
       .map(file => path.resolve(repoPath, file));
 
-  console.log(`Found ${changedFiles1.length} changed files in commit ${commitSha}`);
+  console.log(`Found ${changedFiles.length} changed files in commit ${commitSha}`);
 
 
   // Отримуємо змінені файли з останнього коміту
   const status = await git.status();
-
-  console.log(`git status ${status.current}`)
-  console.log(`git files count ${status.files.length}`)
-  console.log(`git created ${status.created.length}`)
-  console.log(`git modified ${status.modified.length}`)
-  console.log(`git renamed ${status.renamed.length}`)
+  //
+  // console.log(`git status ${status.current}`)
+  // console.log(`git files count ${status.files.length}`)
+  // console.log(`git created ${status.created.length}`)
+  // console.log(`git modified ${status.modified.length}`)
+  // console.log(`git renamed ${status.renamed.length}`)
 
   // Збираємо файли, які були змінені
-  const changedFiles = [
-    ...status.modified,
-    ...status.created,
-    ...status.renamed.map(file => file.to)
-  ]
-    .filter(file => fileExtensions.some(ext => file.endsWith(ext)))
-    .filter(file => !excludePatterns.some(pattern => {
-      // Конвертуємо glob паттерн у регулярний вираз
-      const regexPattern = pattern
-        .replace(/\*\*/g, '.*')
-        .replace(/\*/g, '[^/]*')
-        .replace(/\?/g, '[^/]');
-      
-      return new RegExp(`^${regexPattern}$`).test(file);
-    }))
-    .map(file => path.resolve(repoPath, file));
+  // const changedFiles = [
+  //   ...status.modified,
+  //   ...status.created,
+  //   ...status.renamed.map(file => file.to)
+  // ]
+  //   .filter(file => fileExtensions.some(ext => file.endsWith(ext)))
+  //   .filter(file => !excludePatterns.some(pattern => {
+  //     // Конвертуємо glob паттерн у регулярний вираз
+  //     const regexPattern = pattern
+  //       .replace(/\*\*/g, '.*')
+  //       .replace(/\*/g, '[^/]*')
+  //       .replace(/\?/g, '[^/]');
+  //
+  //     return new RegExp(`^${regexPattern}$`).test(file);
+  //   }))
+  //   .map(file => path.resolve(repoPath, file));
   
   // Видалені файли
   const deletedFiles = status.deleted
@@ -71,7 +71,7 @@ async function scanDiff({
         .replace(/\*\*/g, '.*')
         .replace(/\*/g, '[^/]*')
         .replace(/\?/g, '[^/]');
-      
+
       return new RegExp(`^${regexPattern}$`).test(file);
     }));
   

@@ -20,6 +20,7 @@ class CustomOpenAIEmbeddingFunction {
     const validTexts = texts.map(text => String(text || ""));
     if (validTexts.length === 0) {
       console.error(`no input to send to OpenAI`);
+
       return []
     } else {
 

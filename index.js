@@ -15,7 +15,9 @@ async function run() {
     // Налаштування для фільтрації файлів
     const fileExtensions = (core.getInput('file_extensions') || '.js,.ts,.jsx,.tsx,.html,.css,.md,.txt').split(',');
     const excludePatterns = (core.getInput('exclude_patterns') || 'node_modules/**,dist/**,.git/**').split(',');
-    
+
+    const MAX_TOKENS_PER_BATCH = core.getInput('max_tokens_per_batch') || 250000;
+
     // Підключаємося до векторної бази даних
     let dbAdapter;
 
@@ -56,7 +58,8 @@ async function run() {
     
     // Встановлюємо OpenAI API ключ 1
     process.env.OPENAI_API_KEY = openaiApiKey;
-    
+    process.env.MAX_TOKENS_PER_BATCH = MAX_TOKENS_PER_BATCH;
+
     // Запускаємо сканування репозиторію
     const repoPath = process.env.GITHUB_WORKSPACE || '.';
     

@@ -54,6 +54,11 @@ inputs:
     description: 'OpenAI embedding model to use'
     required: false
     default: 'text-embedding-3-small'
+
+  max_tokens_per_batch:
+    description: 'Max tokens per batch'
+    required: false
+    default: 250000
   
   file_extensions:
     description: 'Comma-separated list of file extensions to include'

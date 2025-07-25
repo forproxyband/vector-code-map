@@ -65,7 +65,7 @@ async function localRun() {
     
     console.log(`Vector code map generation completed in mode: ${mode}`);
   } catch (error) {
-    console.error(`Помилка: ${error.message}`);
+    console.error(`Помилка:  ${error.message}`);
     process.exit(1);
   }
 }

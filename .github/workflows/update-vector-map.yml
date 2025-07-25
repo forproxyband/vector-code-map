@@ -26,14 +26,14 @@ jobs:
           mode: 'diff'
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           db_type: 'chromadb'
-          chroma_host: '181.41.213.86'
-          chroma_port: '1811'
+          chroma_host: ${{ secrets.CHROMADB_HOST }}
+          chroma_port: ${{ secrets.CHROMADB_PORT }}
           chroma_collection: 'openai-update-vector-map'
           
           # Налаштування авторизації
           chroma_auth_enabled: 'true'
           chroma_auth_type: 'token'  # або 'token', 'api_key'
-          chroma_auth_credentials: 'JlYpcJQhbtT1sEqcVCUoy9je09gGRAr1'
+          chroma_auth_credentials: ${{ secrets.CHROMADB_TOKEN }}
           chroma_ssl_enabled: 'false'
           
           file_extensions: '.js,.ts,.jsx,.tsx,.html,.css,.md,.txt'

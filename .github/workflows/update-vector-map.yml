@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0  # Повна історія для режиму diff
 
       - name: Update Vector Code Map
-        uses: forproxyband/vector-code-map@v1.0.9
+        uses: forproxyband/vector-code-map@main
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:

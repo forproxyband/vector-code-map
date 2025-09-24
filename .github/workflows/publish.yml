@@ -19,15 +19,17 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - run: echo "NPM_PACKAGE_VERSION=$(npm version patch --no-git-tag-version)" | tee -a $GITHUB_ENV
+      - run: echo "NPM_PACKAGE_VERSION_MAJOR=$(echo "${{ env.NPM_PACKAGE_VERSION }}" | cut -d. -f1)" | tee -a $GITHUB_ENV
       - run: git add package.json package-lock.json
-      - name: Update README.md with new version
-        run: |
+      - run: |
           sed -i "s|\(uses: forproxyband/vector-code-map@\)v[0-9.]*|\1${{ env.NPM_PACKAGE_VERSION }}|g" README.md
       - run: git add README.md
       - run: |
           git commit -m "Set version ${{ env.NPM_PACKAGE_VERSION }} by ${GITHUB_ACTOR}"
           git push -u origin main
-          git tag -a ${{ env.NPM_PACKAGE_VERSION }} -m "Add tag ${{ env.NPM_PACKAGE_VERSION }}"
+          git tag -a ${{ env.NPM_PACKAGE_VERSION_MAJOR }} -m "Add major tag ${{ env.NPM_PACKAGE_VERSION_MAJOR }}"
+          git push origin ${{ env.NPM_PACKAGE_VERSION_MAJOR }}
+          git tag -fa ${{ env.NPM_PACKAGE_VERSION }} -m "Add tag ${{ env.NPM_PACKAGE_VERSION }}"
           git push origin ${{ env.NPM_PACKAGE_VERSION }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -28,7 +28,7 @@ jobs:
           git commit -m "Set version ${{ env.NPM_PACKAGE_VERSION }} by ${GITHUB_ACTOR}"
           git push -u origin main
           git tag -fa ${{ env.NPM_PACKAGE_VERSION_MAJOR }} -m "Add major tag ${{ env.NPM_PACKAGE_VERSION_MAJOR }}"
-          git push origin ${{ env.NPM_PACKAGE_VERSION_MAJOR }}
+          git push origin ${{ env.NPM_PACKAGE_VERSION_MAJOR }} --force
           git tag -a ${{ env.NPM_PACKAGE_VERSION }} -m "Add tag ${{ env.NPM_PACKAGE_VERSION }}"
           git push origin ${{ env.NPM_PACKAGE_VERSION }}
         env:

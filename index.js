@@ -8,6 +8,21 @@ async function run() {
     const mode = core.getInput('mode') || 'full';
     const dbType = core.getInput('db_type') || 'chromadb';
 
+    let version = "unknown";
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const packageJsonPath = path.resolve(__dirname, './package.json');
+      if (fs.existsSync(packageJsonPath)) {
+        const packageData = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+        version = packageData.version || "unknown";
+      }
+    } catch (versionError) {
+      console.error('Error getting version:', versionError.message);
+    }
+
+    console.log(`Vector code map generator v${version}`);
+
     // Отримання шляху до репозиторію
     const repoPath = process.env.GITHUB_WORKSPACE || '.';
     

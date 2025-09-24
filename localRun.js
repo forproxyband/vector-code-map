@@ -1,12 +1,29 @@
 require('dotenv').config();
 const { getDbAdapter } = require('./src/db');
 const { scanRepository } = require('./src/scanners');
+const path = require("path");
+const fs = require("fs");
 
 async function localRun() {
   try {
     // Отримуємо налаштування з .env
     const mode = process.env.MODE || 'full';
     const dbType = process.env.DB_TYPE || 'chromadb';
+
+    let version = "unknown";
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const packageJsonPath = path.resolve(__dirname, './package.json');
+      if (fs.existsSync(packageJsonPath)) {
+        const packageData = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+        version = packageData.version || "unknown";
+      }
+    } catch (versionError) {
+      console.error('Error getting version:', versionError.message);
+    }
+
+    console.log(`Vector code map generator v${version}`);
 
     // OpenAI налаштування
     const openaiApiKey = process.env.OPENAI_API_KEY;

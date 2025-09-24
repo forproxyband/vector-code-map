@@ -15,7 +15,7 @@
     "openai",
     "chromadb"
   ],
-  "author": "Your Organization",
+  "author": "Octanium91",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.10.0",

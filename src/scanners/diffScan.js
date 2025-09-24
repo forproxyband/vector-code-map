@@ -14,6 +14,10 @@ async function scanDiff({
 
   const commitSha = process.env.GITHUB_SHA;
 
+  if (!commitSha) {
+    throw new Error('No GitHub commit SHA found, exiting with error');
+  }
+
   const git = simpleGit(repoPath);
 
   const diffResult = await git.diff([`${commitSha}^..${commitSha}`, '--name-status', '-M']);

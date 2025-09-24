@@ -1,6 +1,6 @@
 {
   "name": "vector-code-map-action",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "GitHub Action to create vector embeddings from code repository",
   "main": "index.js",
   "scripts": {

@@ -2,7 +2,7 @@
 
 GitHub Action для створення векторних ембедінгів вашого коду для використання з AI інструментами.
 
-```uses: forproxyband/vector-code-map@v1.0.6```
+```uses: forproxyband/vector-code-map@v1.0.7```
 
 ## Опис
 
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Update Vector Code Map
-        uses: forproxyband/vector-code-map@v1.0.6
+        uses: forproxyband/vector-code-map@v1.0.7
         with:
           mode: 'diff'
           chroma_host: ${{ secrets.CHROMA_HOST }}
@@ -66,7 +66,7 @@ jobs:
           fetch-depth: 0
       
       - name: Update Vector Code Map
-        uses: forproxyband/vector-code-map@v1.0.6
+        uses: forproxyband/vector-code-map@v1.0.7
         with:
           # Базові налаштування
           mode: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode || 'diff' }}

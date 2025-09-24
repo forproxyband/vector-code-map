@@ -7,6 +7,9 @@ async function run() {
     // Отримуємо налаштування з GitHub Actions
     const mode = core.getInput('mode') || 'full';
     const dbType = core.getInput('db_type') || 'chromadb';
+
+    // Отримання шляху до репозиторію
+    const repoPath = process.env.GITHUB_WORKSPACE || '.';
     
     // OpenAI налаштування
     const openaiApiKey = core.getInput('openai_api_key', { required: true });
@@ -23,8 +26,8 @@ async function run() {
 
     const { execSync } = require('child_process');
     try {
-      execSync('git config --global --add safe.directory /github/workspace');
-      console.log('Added /github/workspace as safe directory');
+      execSync('git config --global --add safe.directory '+repoPath);
+      console.log('Added '+repoPath+' as safe directory');
     } catch (error) {
       console.error('Failed to configure safe directory:', error.message);
     }
@@ -61,8 +64,6 @@ async function run() {
     process.env.MAX_TOKENS_PER_BATCH = MAX_TOKENS_PER_BATCH;
 
     // Запускаємо сканування репозиторію
-    const repoPath = process.env.GITHUB_WORKSPACE || '.';
-    
     await scanRepository({
       repoPath,
       dbAdapter,

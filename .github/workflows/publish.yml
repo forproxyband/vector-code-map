@@ -6,7 +6,7 @@ permissions: write-all
 
 jobs:
 
-  publish-npm:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,9 +21,9 @@ jobs:
           sed -i "s|\(uses: forproxyband/vector-code-map@\)v[0-9.]*|\1${{ NPM_PACKAGE_VERSION }}|g" README.md
       - run: git add README.md
       - run: |
-          git tag -a ${NPM_PACKAGE_VERSION} -m "Add tag ${NPM_PACKAGE_VERSION}"
-          git push origin ${NPM_PACKAGE_VERSION}
           git commit -m "Set version ${NPM_PACKAGE_VERSION} by ${GITHUB_ACTOR}"
           git push -u origin main
+          git tag -a ${NPM_PACKAGE_VERSION} -m "Add tag ${NPM_PACKAGE_VERSION}"
+          git push origin ${NPM_PACKAGE_VERSION}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

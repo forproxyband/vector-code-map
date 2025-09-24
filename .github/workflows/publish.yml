@@ -20,10 +20,11 @@ jobs:
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - run: echo "NPM_PACKAGE_VERSION=$(npm version patch --no-git-tag-version)" | tee -a $GITHUB_ENV
       - run: echo "NPM_PACKAGE_VERSION_MAJOR=$(echo "${{ env.NPM_PACKAGE_VERSION }}" | cut -d. -f1)" | tee -a $GITHUB_ENV
-      - run: git add package.json package-lock.json
       - run: |
           sed -i "s|\(uses: forproxyband/vector-code-map@\)v[0-9.]*|\1${{ env.NPM_PACKAGE_VERSION }}|g" README.md
-      - run: git add README.md
+      - run: |
+          sed -i "s|\(uses: forproxyband/vector-code-map@\)v[0-9.]*|\1${{ env.NPM_PACKAGE_VERSION }}|g" .github/workflows/update-vector-map.yml
+      - run: git add package.json package-lock.json README.md .github/workflows/update-vector-map.yml
       - run: |
           git commit -m "Set version ${{ env.NPM_PACKAGE_VERSION }} by ${GITHUB_ACTOR}"
           git push -u origin main

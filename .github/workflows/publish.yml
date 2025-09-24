@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+permissions: write-all
+
+jobs:
+
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: echo "NPM_PACKAGE_VERSION=$(npm version patch --no-git-tag-version)" | tee -a $GITHUB_ENV
+      - run: git add package.json package-lock.json
+      - name: Update README.md with new version
+        run: |
+          sed -i "s|\(uses: forproxyband/vector-code-map@\)v[0-9.]*|\1${{ NPM_PACKAGE_VERSION }}|g" README.md
+      - run: git add README.md
+      - run: |
+          git tag -a ${NPM_PACKAGE_VERSION} -m "Add tag ${NPM_PACKAGE_VERSION}"
+          git push origin ${NPM_PACKAGE_VERSION}
+          git commit -m "Set version ${NPM_PACKAGE_VERSION} by ${GITHUB_ACTOR}"
+          git push -u origin main
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

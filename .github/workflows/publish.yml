@@ -22,7 +22,6 @@ jobs:
       - run: echo "NPM_PACKAGE_VERSION_MAJOR=$(echo "${{ env.NPM_PACKAGE_VERSION }}" | cut -d. -f1)" | tee -a $GITHUB_ENV
       - run: |
           sed -i "s|\(uses:[[:space:]]*forproxyband/vector-code-map@\)v[0-9.]*|\1${{ env.NPM_PACKAGE_VERSION }}|g" README.md
-      - run: cat .github/workflows/update-vector-map.yml
       - run: |
           sed -i "s|\(uses:[[:space:]]*forproxyband/vector-code-map@\)v[0-9.]*|\1${{ env.NPM_PACKAGE_VERSION }}|g" .github/workflows/update-vector-map.yml
       - run: git diff

@@ -2,6 +2,8 @@
 
 GitHub Action для створення векторних ембедінгів вашого коду для використання з AI інструментами.
 
+```uses: forproxyband/vector-code-map@v1```
+
 ## Опис
 
 Ця GitHub Action сканує вихідний код вашого репозиторію та створює векторні ембедінги коду за допомогою OpenAI API. Ембедінги зберігаються у векторній базі даних ChromaDB для подальшого використання з AI помічниками, інструментами пошуку коду та іншими застосунками, що потребують розуміння вашої кодової бази.
@@ -32,7 +34,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Update Vector Code Map
-        uses: your-org/vector-code-map@v1
+        uses: forproxyband/vector-code-map@v1
         with:
           mode: 'diff'
           chroma_host: ${{ secrets.CHROMA_HOST }}
@@ -64,7 +66,7 @@ jobs:
           fetch-depth: 0
       
       - name: Update Vector Code Map
-        uses: your-org/vector-code-map@v1
+        uses: forproxyband/vector-code-map@v1
         with:
           # Базові налаштування
           mode: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.mode || 'diff' }}
